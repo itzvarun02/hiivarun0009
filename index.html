@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hii Varun - AI-Powered Logistics</title>
+    <style>
+        /* Theme variables */
+        :root {
+            --background: #ffffff;
+            --text: #333333;
+            --text-muted: #666666;
+            --primary: #4285f4;
+            --primary-hover: #3367d6;
+            --card-bg: #ffffff;
+            --card-border: #eeeeee;
+            --header-bg: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Dark theme variables */
+        [data-theme="dark"] {
+            --background: #1a1a1a;
+            --text: #ffffff;
+            --text-muted: #a0a0a0;
+            --primary: #5c9aff;
+            --primary-hover: #4285f4;
+            --card-bg: #2d2d2d;
+            --card-border: #404040;
+            --header-bg: rgba(26, 26, 26, 0.9);
+        }
+
+        /* Base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Theme toggle */
+        .theme-toggle {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 3rem;
+            height: 3rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            transition: transform 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        /* Header styles */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 1rem 2rem;
+            background: var(--header-bg);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--card-border);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-text {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.875rem;
+            margin-left: 2rem;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--text);
+        }
+
+        /* Section styles */
+        section {
+            padding: 6rem 2rem;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .section-content {
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        /* Hero section */
+        .hero {
+            position: relative;
+        }
+
+        .logo-block {
+            width: 8rem;
+            height: 8rem;
+            background: linear-gradient(135deg, #4285f4, #34a853);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            font-weight: bold;
+            border-radius: 1.5rem;
+            margin-bottom: 2rem;
+            transition: transform 0.3s ease;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* FCL section */
+        .fcl-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 1rem;
+            border: 1px solid var(--card-border);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* About section */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-content {
+            padding: 2rem;
+            background: var(--card-bg);
+            border-radius: 1rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .about-content:hover {
+            transform: translateY(-5px);
+        }
+
+        .ceo-image {
+            width: 300px;
+            border-radius: 8px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .ceo-info {
+            margin-top: 2rem;
+            padding: 2rem;
+            background: var(--card-bg);
+            border-radius: 1rem;
+            border: 1px solid var(--card-border);
+        }
+
+        .ceo-contact {
+            margin-top: 1rem;
+            display: grid;
+            gap: 0.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-item:hover {
+            color: var(--primary);
+        }
+
+        /* Auth modals */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            align-items: center;
+            justify-content: center;
+            z-index: 1001;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 1rem;
+            border: 1px solid var(--card-border);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        /* Form styles */
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-muted);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--card-border);
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            background: var(--card-bg);
+            color: var(--text);
+        }
+
+        /* Button styles */
+        .button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background: var(--primary-hover);
+        }
+
+        /* Career section */
+        .career-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .job-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 1rem;
+            border: 1px solid var(--card-border);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Contact section */
+        .contact-info {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-email {
+            font-size: 1.25rem;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        /* Footer */
+        footer {
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid var(--card-border);
+            background: var(--card-bg);
+        }
+
+        .copyright {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .logo-block {
+                width: 6rem;
+                height: 6rem;
+                font-size: 3rem;
+            }
+
+            .ceo-image {
+                width: 100%;
+                max-width: 300px;
+                margin: 0 auto;
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Theme toggle button -->
+    <button class="theme-toggle" id="theme-toggle">
+        🌓
+    </button>
+
+    <header>
+        <div class="logo-section">
+            <div style="font-size: 1.25rem; font-weight: 500;">Hii Varun</div>
+            <span class="logo-text">| AI-Powered Logistics</span>
+        </div>
+        <nav>
+            <a href="#fcl">FCL</a>
+            <a href="#about">About</a>
+            <a href="#careers">Careers</a>
+            <a href="#contact">Contact</a>
+            <a href="#" onclick="showModal('login-modal')">Login</a>
+            <a href="#" onclick="showModal('signup-modal')">Sign Up</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="section-content">
+            <div class="logo-block">H</div>
+            <h1 class="fade-in">is for Hii Varun</h1>
+            <p class="fade-in">
+                "We're revolutionizing logistics through artificial intelligence. 
+                Our mission is to make global trade seamless, intelligent, and efficient."
+            </p>
+            <a href="#fcl" class="button fade-in">Explore Our Solutions</a>
+        </div>
+    </section>
+
+    <!-- FCL Section -->
+    <section id="fcl">
+        <div class="section-content">
+            <h2 class="fade-in">Full Container Load Shipments (FCL)</h2>
+            <p class="fade-in">
+                Work with experts who know what it takes to ship full container loads across the globe.
+            </p>
+            <div class="fcl-features">
+                <div class="feature-card fade-in">
+                    <h3>Door to Door Service</h3>
+                    <p>Complete logistics solution from pickup to delivery</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <h3>AI-Powered Routing</h3>
+                    <p>Optimal route selection using advanced algorithms</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <h3>Real-time Tracking</h3>
+                    <p>24/7 visibility of your shipments</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="section-content">
+            <div class="about-grid">
+                <div class="about-content fade-in">
+                    <h2>About Hii Varun</h2>
+                    <p>
+                        We combine deep industry expertise with advanced technology to provide 
+                        seamless logistics solutions that help our clients optimize their supply chains 
+                        and grow their businesses.
+                    </p>
+                    <div class="ceo-info">
+                        <h3>Ms. Rashika Rawat</h3>
+                        <p>CEO & Managing Director</p>
+                        <div class="ceo-contact">
+                            <a href="mailto:hii.rashika@hiivarun.in" class="contact-item">
+                                ✉️ hii.rashika@hiivarun.in
+                            </a>
+                            <a href="tel:+17777777777" class="contact-item">
+                                📞 +1 (7777)7777-777
+                            </a>
+                            <a href="https://www.linkedin.com/in/rashika-rawat-73a955132/" target="_blank" class="contact-item">
+                                🔗 LinkedIn Profile
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="fade-in">
+                    <img 
+                        src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-GyX6E8Vt0fqq2ChWQYXYGenwU4jb7A.png"
+                        alt="Ms. Rashika Rawat" 
+                        class="ceo-image"
+                    >
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Careers Section -->
+    <section id="careers">
+        <div class="section-content">
+            <h2 class="fade-in">Join Our Team</h2>
+            <p class="fade-in">Help us revolutionize the logistics industry</p>
+            <div class="career-grid">
+                <div class="job-card fade-in">
+                    <h3>AI Engineer</h3>
+                    <p>Build next-gen logistics solutions</p>
+                    <a href="mailto:careers@hiivarun.in" class="button">Apply Now</a>
+                </div>
+                <div class="job-card fade-in">
+                    <h3>Logistics Specialist</h3>
+                    <p>Drive operational excellence</p>
+                    <a href="mailto:careers@hiivarun.in" class="button">Apply Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="section-content">
+            <div class="contact-info fade-in">
+                <h2>Get in Touch</h2>
+                <p>For enquiries, investment opportunities, and partnerships:</p>
+                <a href="mailto:hii.rashika@hiivarun.in" class="contact-email">
+                    hii.rashika@hiivarun.in
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="modal">
+        <div class="modal-content">
+            <h2>Login</h2>
+            <form onsubmit="return false;">
+                <div class="form-group">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" required>
+                </div>
+                <button type="submit" class="button">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div id="signup-modal" class="modal">
+        <div class="modal-content">
+            <h2>Sign Up</h2>
+            <form onsubmit="return false;">
+                <div class="form-group">
+                    <label for="signup-name">Full Name</label>
+                    <input type="text" id="signup-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-email">Email</label>
+                    <input type="email" id="signup-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-password">Password</label>
+                    <input type="password" id="signup-password" required>
+                </div>
+                <button type="submit" class="button">Sign Up</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p class="copyright">
+            © 2025 Hii Varun. All rights reserved. | Pioneering AI-Powered Logistics Solutions
+        </p>
+    </footer>
+
+    <script>
+        // Modal handling
+        function showModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        // Close modal when clicking outside
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                }
+            });
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                if (this.getAttribute('href').startsWith('#') && 
+                    !this.getAttribute('onclick')) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href'))
+                        .scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Intersection Observer for fade-in animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('theme-toggle');
+        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+        
+        // Set initial theme based on system preference
+        if (prefersDarkScheme.matches) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            themeToggle.textContent = '🌞';
+        }
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            if (currentTheme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'light');
+                themeToggle.textContent = '🌓';
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                themeToggle.textContent = '🌞';
+            }
+        });
+    </script>
+</body>
+</html>
